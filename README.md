@@ -1,6 +1,19 @@
 # StorySphere
 
-This is an experiment in rendering Photospheres plain and simple with OpenGL.
+This is an experiment rendering Photospheres with OpenGL and no proprietary bullshit.
+
+# Building
+
+#### Android Studio
+
+File -> Open Project -> point at this directory.
+
+#### Command Line
+
+```bash
+./gradlew assembleDebug
+adb install -r ./storysphere/build/outputs/apk/storysphere-debug
+```
 
 
 # Issues
