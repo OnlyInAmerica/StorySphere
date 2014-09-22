@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Gallery.iml" filepath="$PROJECT_DIR$/Gallery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rajawali/rajawali.iml" filepath="$PROJECT_DIR$/rajawali/rajawali.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rajawaliVR/rajawaliVR.iml" filepath="$PROJECT_DIR$/rajawaliVR/rajawaliVR.iml" />
+      <module fileurl="file://$PROJECT_DIR$/storysphere/storysphere.iml" filepath="$PROJECT_DIR$/storysphere/storysphere.iml" />
+    </modules>
+  </component>
+</project>
+
