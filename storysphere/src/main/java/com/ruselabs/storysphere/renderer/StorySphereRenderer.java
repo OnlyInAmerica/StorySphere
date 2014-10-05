@@ -1,11 +1,14 @@
 package com.ruselabs.storysphere.renderer;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 
-import com.ruselabs.storysphere.plugin.PhotosphereBlender;
+import com.ruselabs.storysphere.tricks.VideoScreen;
 
 import rajawali.materials.Material;
 import rajawali.materials.textures.Texture;
+import rajawali.materials.textures.VideoTexture;
+import rajawali.primitives.Plane;
 import rajawali.primitives.Sphere;
 import rajawali.vr.RajawaliVRRenderer;
 import rajawali.vr.example.R;
@@ -21,14 +24,18 @@ import rajawali.vr.example.R;
 public class StorySphereRenderer extends RajawaliVRRenderer {
     public static final String TAG = "StorySphereRenderer";
 
+    /** Photosphere textures */
     private Texture mFirstTexture;
     private Texture mSecondTexture;
 
-    private PhotosphereBlender mBlender;
+    private VideoScreen mVideoScreen;
+//    private PhotosphereBlender mBlender;
 
     public StorySphereRenderer(Context context) {
         super(context);
-        mBlender = new PhotosphereBlender();
+        setFrameRate(60);
+//        mBlender = new PhotosphereBlender();
+        mVideoScreen = new VideoScreen(mContext, R.raw.bday, 16, 9);
     }
 
     @Override
@@ -50,10 +57,14 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
             sphere.setPosition(0, 0, 0);
             sphere.setDoubleSided(true);
 
+            /** Setup video */
+            getCurrentScene().addChild(mVideoScreen.getScreen());
 
-            mFirstTexture = new Texture("hawaii", R.drawable.hawaii_4096);
-            mSecondTexture = new Texture("brc", R.drawable.brc_4096);
-            mSecondTexture.setInfluence(0f);
+
+            mFirstTexture = new Texture("room", R.drawable.living_room_4096);
+//            mFirstTexture = new Texture("hawaii", R.drawable.hawaii_4096);
+//            mSecondTexture = new Texture("brc", R.drawable.brc_4096);
+//            mSecondTexture.setInfluence(0f);
             Material material = new Material();
 
             // It may be better to bundle ETC1 Textures vs raw JPEGs
@@ -64,7 +75,7 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
             //material.addTexture(new Etc1Texture(R.raw.brc_sm));
 
             material.addTexture(mFirstTexture);
-            material.addTexture(mSecondTexture);
+//            material.addTexture(mSecondTexture);
             material.enableLighting(true);
             material.setColorInfluence(0f);
             sphere.setMaterial(material);
@@ -80,7 +91,8 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
 
     @Override
     public void onRender(double deltaTime) {
-        mBlender.blendPhotosphereByYaw(mCameraOrientation, mFirstTexture, mSecondTexture);
+//        mBlender.blendPhotosphereByYaw(mCameraOrientation, mFirstTexture, mSecondTexture);
+        mVideoScreen.advanceFrame();
         super.onRender(deltaTime);
     }
 }
