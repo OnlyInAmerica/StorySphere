@@ -17,6 +17,7 @@ public class VideoScreen {
 
     Plane mVideoScreen;
     VideoTexture mVideoTexture;
+    Material mVideoMaterial;
     MediaPlayer mMediaPlayer;
 
 
@@ -32,10 +33,11 @@ public class VideoScreen {
             mVideoScreen.setRotY(90);
             mVideoScreen.setRotZ(3);
             mVideoScreen.setDoubleSided(true);
-            Material videoMaterial = new Material();
-            videoMaterial.addTexture(mVideoTexture);
-            videoMaterial.setColorInfluence(0f);
-            mVideoScreen.setMaterial(videoMaterial);
+            mVideoMaterial = new Material();
+            mVideoMaterial.addTexture(mVideoTexture);
+            mVideoMaterial.setColorInfluence(0f);
+            mVideoScreen.setMaterial(mVideoMaterial);
+
         } catch (ATexture.TextureException e) {
             e.printStackTrace();
         }

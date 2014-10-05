@@ -3,6 +3,7 @@ package com.ruselabs.storysphere.renderer;
 import android.content.Context;
 import android.media.MediaPlayer;
 
+import com.ruselabs.storysphere.tricks.ChromaVideoScreen;
 import com.ruselabs.storysphere.tricks.VideoScreen;
 
 import rajawali.materials.Material;
@@ -35,7 +36,7 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
         super(context);
         setFrameRate(60);
 //        mBlender = new PhotosphereBlender();
-        mVideoScreen = new VideoScreen(mContext, R.raw.bday, 16, 9);
+//        mVideoScreen = new VideoScreen(mContext, R.raw.explosion, 9, 16);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
             sphere.setDoubleSided(true);
 
             /** Setup video */
-            getCurrentScene().addChild(mVideoScreen.getScreen());
+//            getCurrentScene().addChild(mVideoScreen.getScreen());
 
 
             mFirstTexture = new Texture("room", R.drawable.living_room_4096);
@@ -92,7 +93,7 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
     @Override
     public void onRender(double deltaTime) {
 //        mBlender.blendPhotosphereByYaw(mCameraOrientation, mFirstTexture, mSecondTexture);
-        mVideoScreen.advanceFrame();
+//        mVideoScreen.advanceFrame();
         super.onRender(deltaTime);
     }
 }
