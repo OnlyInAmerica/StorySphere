@@ -36,6 +36,7 @@ public abstract class ATexture extends AFrameTask {
 		LOOKUP,
 		CUBE_MAP,
 		SPHERE_MAP,
+		ALPHA_VIDEO_TEXTURE,
 		VIDEO_TEXTURE,
 		COMPRESSED
 	};

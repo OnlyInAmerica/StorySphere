@@ -18,6 +18,6 @@ public class ChromaVideoScreen extends VideoScreen{
 
     public ChromaVideoScreen(Context context, int movieResId, int initialHeight, int initialWidth) {
         super(context, movieResId, initialHeight, initialWidth);
-        mVideoMaterial.addPlugin(new ChromaKeyMaterialPlugin());
+        mVideoMaterial.addPlugin(new ChromaKeyMaterialPlugin(mVideoMaterial));
     }
 }

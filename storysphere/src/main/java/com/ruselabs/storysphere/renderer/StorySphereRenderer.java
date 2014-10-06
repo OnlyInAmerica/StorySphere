@@ -35,17 +35,11 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
     public StorySphereRenderer(Context context) {
         super(context);
         setFrameRate(60);
-//        mBlender = new PhotosphereBlender();
-//        mVideoScreen = new VideoScreen(mContext, R.raw.explosion, 9, 16);
     }
 
     @Override
     public void initScene() {
         try {
-            // If we could convert the Photospheres into skybox graphics, we might
-            // be able to get away with higher-resolution textures!
-
-            //getCurrentScene().setSkybox(R.drawable.posx, R.drawable.negx, R.drawable.posy, R.drawable.negy, R.drawable.posz, R.drawable.negz);
 
             /** These values don't have a great significance if we're not placing objects within the sphere */
             final int PHOTOSPHERE_RADIUS = 50;
@@ -53,13 +47,15 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
             final int PHOTOSPHERE_SEGMENTS_HORIZONTAL = 24;
 
             /** Create Photosphere */
+            //        mBlender = new PhotosphereBlender();
             getCurrentCamera().setPosition(0,0,0);
             Sphere sphere = new Sphere(PHOTOSPHERE_RADIUS, PHOTOSPHERE_SEGMENTS_HORIZONTAL, PHOTOSPHERE_SEGMENTS_VERTICAL);
             sphere.setPosition(0, 0, 0);
             sphere.setDoubleSided(true);
 
             /** Setup video */
-//            getCurrentScene().addChild(mVideoScreen.getScreen());
+            mVideoScreen = new VideoScreen(mContext, R.raw.face_off, 9, 16);
+            getCurrentScene().addChild(mVideoScreen.getScreen());
 
 
             mFirstTexture = new Texture("room", R.drawable.living_room_4096);
@@ -67,13 +63,6 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
 //            mSecondTexture = new Texture("brc", R.drawable.brc_4096);
 //            mSecondTexture.setInfluence(0f);
             Material material = new Material();
-
-            // It may be better to bundle ETC1 Textures vs raw JPEGs
-            // but I was having issues. Also fuck it and JPEGs are smaller on disk.
-            // See http://malideveloper.arm.com/develop-for-mali/tools/asset-creation/mali-gpu-texture-compression-tool/
-
-            //material.addTexture(mTextureManager.addTexture(new Etc1Texture(R.raw.brc_sm)));
-            //material.addTexture(new Etc1Texture(R.raw.brc_sm));
 
             material.addTexture(mFirstTexture);
 //            material.addTexture(mSecondTexture);
@@ -93,7 +82,7 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
     @Override
     public void onRender(double deltaTime) {
 //        mBlender.blendPhotosphereByYaw(mCameraOrientation, mFirstTexture, mSecondTexture);
-//        mVideoScreen.advanceFrame();
+        mVideoScreen.advanceFrame();
         super.onRender(deltaTime);
     }
 }

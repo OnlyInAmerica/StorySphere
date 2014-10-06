@@ -3,6 +3,8 @@ package com.ruselabs.storysphere.tricks;
 import android.content.Context;
 import android.media.MediaPlayer;
 
+import rajawali.materials.textures.AlphaVideoTexture;
+
 import rajawali.Object3D;
 import rajawali.materials.Material;
 import rajawali.materials.textures.ATexture;
@@ -16,7 +18,7 @@ import rajawali.vr.example.R;
 public class VideoScreen {
 
     Plane mVideoScreen;
-    VideoTexture mVideoTexture;
+    AlphaVideoTexture mVideoTexture;
     Material mVideoMaterial;
     MediaPlayer mMediaPlayer;
 
@@ -26,7 +28,7 @@ public class VideoScreen {
             mMediaPlayer = MediaPlayer.create(context, movieResId);
             mMediaPlayer.setLooping(true);
             mMediaPlayer.start();
-            mVideoTexture = new VideoTexture("video", mMediaPlayer);
+            mVideoTexture = new AlphaVideoTexture("video", mMediaPlayer);
 
             mVideoScreen = new Plane(initialWidth, initialHeight, 1, 1);
             mVideoScreen.setPosition(-40,.5,-2);

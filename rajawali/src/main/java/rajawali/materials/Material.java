@@ -543,6 +543,8 @@ public class Material extends AFrameTask {
 					if(specMapTextures == null) specMapTextures = new ArrayList<ATexture>();
 					specMapTextures.add(texture);
 					break;
+				case ALPHA_VIDEO_TEXTURE:
+					hasVideoTexture = true;
 				case ALPHA:
 					if(alphaMapTextures == null) alphaMapTextures = new ArrayList<ATexture>();
 					alphaMapTextures.add(texture);
