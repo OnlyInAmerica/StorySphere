@@ -28,7 +28,9 @@ import rajawali.materials.shaders.IShaderFragment;
 import rajawali.materials.shaders.VertexShader;
 import rajawali.materials.shaders.fragments.LightsFragmentShaderFragment;
 import rajawali.materials.shaders.fragments.LightsVertexShaderFragment;
+import rajawali.materials.shaders.fragments.texture.ATextureFragmentShaderFragment;
 import rajawali.materials.shaders.fragments.texture.AlphaMapFragmentShaderFragment;
+import rajawali.materials.shaders.fragments.texture.AlphaVideoFragmentShaderFragment;
 import rajawali.materials.shaders.fragments.texture.DiffuseTextureFragmentShaderFragment;
 import rajawali.materials.shaders.fragments.texture.EnvironmentMapFragmentShaderFragment;
 import rajawali.materials.shaders.fragments.texture.NormalMapFragmentShaderFragment;
@@ -648,7 +650,12 @@ public class Material extends AFrameTask {
 			
 			if(alphaMapTextures != null && alphaMapTextures.size() > 0)
 			{
-				AlphaMapFragmentShaderFragment fragment = new AlphaMapFragmentShaderFragment(alphaMapTextures);
+				ATextureFragmentShaderFragment fragment = null;
+                if (hasVideoTexture) {
+                    fragment = new AlphaVideoFragmentShaderFragment(alphaMapTextures);
+                } else {
+                    fragment = new AlphaMapFragmentShaderFragment(alphaMapTextures);
+                }
 				mFragmentShader.addShaderFragment(fragment);
 			}
 			
