@@ -276,7 +276,7 @@ public class Material extends AFrameTask {
 	}
 	
 	/**
- 	 * Indicates that this material should use a color value for every vertex. These colors are
+	 * Indicates that this material should use a color value for every vertex. These colors are
 	 * contained in a separate color buffer. 
 	 * @return A boolean indicating that vertex colors will be used.
 	 */
@@ -286,7 +286,7 @@ public class Material extends AFrameTask {
 	}
 
 	/**
- 	 * Indicates that this material should use a color value for every vertex. These colors are
+	 * Indicates that this material should use a color value for every vertex. These colors are
 	 * contained in a separate color buffer. 
 	 * @param value A boolean indicating whether vertex colors should be used or not
 	 */
@@ -492,7 +492,7 @@ public class Material extends AFrameTask {
 			
 			boolean hasCubeMaps = false;
 			boolean hasVideoTexture = false;
-            boolean hasAlphaVideoTexture = false;
+			boolean hasAlphaVideoTexture = false;
 			
 			for(int i=0; i<mTextureList.size(); i++)
 			{
@@ -500,8 +500,8 @@ public class Material extends AFrameTask {
 								
 				switch(texture.getTextureType())
 				{
-                case ALPHA_VIDEO_TEXTURE:
-                    hasAlphaVideoTexture = true;
+				case ALPHA_VIDEO_TEXTURE:
+					hasAlphaVideoTexture = true;
 				case VIDEO_TEXTURE:
 					hasVideoTexture = true;
 					// no break statement, add the video texture to the diffuse textures
@@ -651,13 +651,13 @@ public class Material extends AFrameTask {
 			
 			if(alphaMapTextures != null && alphaMapTextures.size() > 0)
 			{
-                ATextureFragmentShaderFragment fragment = new AlphaMapFragmentShaderFragment(alphaMapTextures);
+				ATextureFragmentShaderFragment fragment = new AlphaMapFragmentShaderFragment(alphaMapTextures);
 				mFragmentShader.addShaderFragment(fragment);
 			}
 
-            if (hasAlphaVideoTexture) {
-                mFragmentShader.addShaderFragment(new AlphaVideoFragmentShaderFragment(diffuseTextures));
-            }
+			if (hasAlphaVideoTexture) {
+				mFragmentShader.addShaderFragment(new AlphaVideoFragmentShaderFragment(diffuseTextures));
+			}
 			
 			checkForPlugins(PluginInsertLocation.PRE_TRANSFORM);
 			checkForPlugins(PluginInsertLocation.POST_TRANSFORM);
