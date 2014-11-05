@@ -12,8 +12,6 @@
  */
 package rajawali.materials.shaders.fragments.texture;
 
-import android.util.Log;
-
 import java.util.List;
 
 import rajawali.materials.Material.PluginInsertLocation;
@@ -36,22 +34,44 @@ public class AlphaVideoFragmentShaderFragment extends ATextureFragmentShaderFrag
 	public void main() {
 		super.main();
 		RVec2 textureCoord = (RVec2)getGlobal(DefaultShaderVar.G_TEXTURE_COORD);
-		RVec4 alphaMaskColor = new RVec4("alphaMaskColor");
-		Log.i("AlphaMapFragmentShader", "running main");
-		for(int i=0; i<mTextures.size(); i++)
-		{
-			alphaMaskColor.assign(texture2D(muVideoTextures[i], textureCoord));
-			startif(new Condition(alphaMaskColor.r(), Operator.LESS_THAN, .5f));
-			{
-				discard();
-			}
-			endif();
-		}
+        RVec4 color = (RVec4) getGlobal(DefaultShaderVar.G_COLOR);
+		RVec4 fragColor = new RVec4("fragColor");
+
+        int videoTextureCount = 0;
+		for(int i=0; i < mTextures.size(); i++) {
+            if (mTextures.get(i).getTextureType() == ATexture.TextureType.ALPHA_VIDEO_TEXTURE) {
+                fragColor.assign(texture2D(muVideoTextures[videoTextureCount++], textureCoord));
+
+                fragColor.assignMultiply(muInfluence[i]);
+                color.assign(fragColor);
+
+                Condition[] conditions = new Condition[3];
+                conditions[0] = new Condition(fragColor.r(), Operator.LESS_THAN, .5f);
+                conditions[1] = new Condition(Operator.AND, fragColor.g(), Operator.LESS_THAN, .5f);
+                conditions[2] = new Condition(Operator.AND, fragColor.b(), Operator.LESS_THAN, .5f);
+                startif(conditions);
+                {
+                    discard();
+                }
+                endif();
+            }
+        }
+
+
+            //color.r().assign(alphaMaskColor.r()); // Black screen
+            //color.g().assign(alphaMaskColor.g()); // green tint image. lower aberrations
+            //color.b().assign(alphaMaskColor.b()); // Black screen
+            //color.a().assign(alphaMaskColor.a()); // Black screen
+            //color.g().assign(alphaMaskColor.r()); // Black screen
+
+
+//            Rough algorithm for Chroma-keying dark pixels
+
 	}
 	
 	@Override
 	public PluginInsertLocation getInsertLocation() {
-		return PluginInsertLocation.IGNORE;
+		return PluginInsertLocation.PRE_TRANSFORM;
 	}
 	
 	public void bindTextures(int nextIndex) {}

@@ -492,6 +492,7 @@ public class Material extends AFrameTask {
 			
 			boolean hasCubeMaps = false;
 			boolean hasVideoTexture = false;
+            boolean hasAlphaVideoTexture = false;
 			
 			for(int i=0; i<mTextureList.size(); i++)
 			{
@@ -499,6 +500,8 @@ public class Material extends AFrameTask {
 								
 				switch(texture.getTextureType())
 				{
+                case ALPHA_VIDEO_TEXTURE:
+                    hasAlphaVideoTexture = true;
 				case VIDEO_TEXTURE:
 					hasVideoTexture = true;
 					// no break statement, add the video texture to the diffuse textures
@@ -545,8 +548,6 @@ public class Material extends AFrameTask {
 					if(specMapTextures == null) specMapTextures = new ArrayList<ATexture>();
 					specMapTextures.add(texture);
 					break;
-				case ALPHA_VIDEO_TEXTURE:
-					hasVideoTexture = true;
 				case ALPHA:
 					if(alphaMapTextures == null) alphaMapTextures = new ArrayList<ATexture>();
 					alphaMapTextures.add(texture);
@@ -650,14 +651,13 @@ public class Material extends AFrameTask {
 			
 			if(alphaMapTextures != null && alphaMapTextures.size() > 0)
 			{
-				ATextureFragmentShaderFragment fragment = null;
-                if (hasVideoTexture) {
-                    fragment = new AlphaVideoFragmentShaderFragment(alphaMapTextures);
-                } else {
-                    fragment = new AlphaMapFragmentShaderFragment(alphaMapTextures);
-                }
+                ATextureFragmentShaderFragment fragment = new AlphaMapFragmentShaderFragment(alphaMapTextures);
 				mFragmentShader.addShaderFragment(fragment);
 			}
+
+            if (hasAlphaVideoTexture) {
+                mFragmentShader.addShaderFragment(new AlphaVideoFragmentShaderFragment(diffuseTextures));
+            }
 			
 			checkForPlugins(PluginInsertLocation.PRE_TRANSFORM);
 			checkForPlugins(PluginInsertLocation.POST_TRANSFORM);

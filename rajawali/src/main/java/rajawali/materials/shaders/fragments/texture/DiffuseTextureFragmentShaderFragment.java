@@ -47,7 +47,7 @@ public class DiffuseTextureFragmentShaderFragment extends ATextureFragmentShader
 			if(texture.getWrapType() == WrapType.REPEAT)
 				textureCoord.assignMultiply(getGlobal(DefaultShaderVar.U_REPEAT, i));
 			
-			if(texture.getTextureType() == TextureType.VIDEO_TEXTURE)
+			if(texture.getTextureType() == TextureType.VIDEO_TEXTURE || texture.getTextureType() == TextureType.ALPHA_VIDEO_TEXTURE)
 				texColor.assign(texture2D(muVideoTextures[i], textureCoord));
 			else
 				texColor.assign(texture2D(muTextures[i], textureCoord));

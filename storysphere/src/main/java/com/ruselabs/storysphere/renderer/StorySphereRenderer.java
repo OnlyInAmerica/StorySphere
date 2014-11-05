@@ -48,29 +48,29 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
 
             /** Create Photosphere */
             //        mBlender = new PhotosphereBlender();
-            getCurrentCamera().setPosition(0,0,0);
-            Sphere sphere = new Sphere(PHOTOSPHERE_RADIUS, PHOTOSPHERE_SEGMENTS_HORIZONTAL, PHOTOSPHERE_SEGMENTS_VERTICAL);
-            sphere.setPosition(0, 0, 0);
-            sphere.setDoubleSided(true);
+//            getCurrentCamera().setPosition(0,0,0);
+//            Sphere sphere = new Sphere(PHOTOSPHERE_RADIUS, PHOTOSPHERE_SEGMENTS_HORIZONTAL, PHOTOSPHERE_SEGMENTS_VERTICAL);
+//            sphere.setPosition(0, 0, 0);
+//            sphere.setDoubleSided(true);
 
             /** Setup video */
-            mVideoScreen = new VideoScreen(mContext, R.raw.face_off, 9, 16);
+            mVideoScreen = new VideoScreen(mContext, R.raw.explosion, 9, 16);
             getCurrentScene().addChild(mVideoScreen.getScreen());
 
 
-            mFirstTexture = new Texture("room", R.drawable.living_room_4096);
-//            mFirstTexture = new Texture("hawaii", R.drawable.hawaii_4096);
-//            mSecondTexture = new Texture("brc", R.drawable.brc_4096);
-//            mSecondTexture.setInfluence(0f);
-            Material material = new Material();
-
-            material.addTexture(mFirstTexture);
-//            material.addTexture(mSecondTexture);
-            material.enableLighting(true);
-            material.setColorInfluence(0f);
-            sphere.setMaterial(material);
-
-            getCurrentScene().addChild(sphere);
+//            mFirstTexture = new Texture("room", R.drawable.living_room_4096);
+////            mFirstTexture = new Texture("hawaii", R.drawable.hawaii_4096);
+////            mSecondTexture = new Texture("brc", R.drawable.brc_4096);
+////            mSecondTexture.setInfluence(0f);
+//            Material material = new Material();
+//
+//            material.addTexture(mFirstTexture);
+////            material.addTexture(mSecondTexture);
+//            material.enableLighting(true);
+//            material.setColorInfluence(0f);
+//            sphere.setMaterial(material);
+//
+//            getCurrentScene().addChild(sphere);
 
         } catch (Exception e) {
             e.printStackTrace();
