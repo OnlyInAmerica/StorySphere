@@ -1,12 +1,13 @@
 package com.ruselabs.storysphere.activities;
 
-import rajawali.vr.RajawaliVRActivity;
-import com.ruselabs.storysphere.renderer.StorySphereRenderer;
-
 import android.content.pm.ActivityInfo;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
+
+import com.ruselabs.storysphere.renderer.StorySphereRenderer;
+
+import rajawali.vr.RajawaliVRActivity;
 
 /**
  * This class is the entry point for the StorySphere experience.
@@ -17,6 +18,7 @@ import android.view.Window;
  */
 public class StorySphereActivity extends RajawaliVRActivity {
 	private StorySphereRenderer mRenderer;
+    private Camera mCamera;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,10 @@ public class StorySphereActivity extends RajawaliVRActivity {
 
         // Lock the orientation to landscape
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        if (mCamera == null) {
+            mCamera = Camera.open();
+        }
 
         // Connect our Storysphere renderer
 		mRenderer = new StorySphereRenderer(this);
@@ -72,5 +78,18 @@ public class StorySphereActivity extends RajawaliVRActivity {
     public void onPause() {
         super.onPause();
         getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (mCamera != null) {
+            mCamera.release();
+        }
+    }
+
+    public Camera getCamera() {
+        return mCamera;
     }
 }

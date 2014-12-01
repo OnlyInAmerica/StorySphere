@@ -1,14 +1,16 @@
 package com.ruselabs.storysphere.renderer;
 
 import android.content.Context;
+import android.hardware.Camera;
 
 import com.ruselabs.storysphere.R;
+import com.ruselabs.storysphere.activities.StorySphereActivity;
+import com.ruselabs.storysphere.tricks.CameraScreen;
 import com.ruselabs.storysphere.tricks.ChromaVideoScreen;
 import com.ruselabs.storysphere.tricks.VideoSphereScreen;
 
-import rajawali.materials.Material;
+import rajawali.lights.DirectionalLight;
 import rajawali.materials.textures.Texture;
-import rajawali.primitives.Sphere;
 import rajawali.vr.RajawaliVRRenderer;
 
 /**
@@ -28,6 +30,7 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
 
     private ChromaVideoScreen mVideoScreen;
     private VideoSphereScreen mVideoSphereScreen;
+    private CameraScreen mCameraScreen;
 //    private PhotosphereBlender mBlender;
 
     public StorySphereRenderer(Context context) {
@@ -77,7 +80,19 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
 //            hewitt.setScale(1f);
 //            getCurrentScene().addChild(hewitt);
 
-//
+//            SpotLight light = new SpotLight();
+//            light.setPosition(80, 80, 0);
+//            light.setPower(1f);
+//            light.setLookAt(80, 0, 0);
+//            getCurrentScene().addLight(light);
+
+            // BEGIN SPACE
+
+            DirectionalLight light = new DirectionalLight(0.2f, -.5f, -1f);
+            light.setPower(1f);
+            getCurrentScene().addLight(light);
+
+            getCurrentScene().setBackgroundColor(0f, 0f, 0f, 1f);
             getCurrentScene().setSkybox(R.drawable.starfield_front,
                                         R.drawable.starfield_right,
                                         R.drawable.starfield_back,
@@ -85,14 +100,44 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
                                         R.drawable.starfield_top,
                                         R.drawable.starfield_back);
 
+
+            mEnableHeadTracking = false;
+
+            Camera camera = ((StorySphereActivity) mContext).getCamera();
+            mCameraScreen = new CameraScreen(camera, 6, 8, 0, 0, -10);
+            mCameraScreen.getScreen().setRotY(180);
+            getCurrentScene().addChild(mCameraScreen.getScreen());
+            camera.startPreview();
+
+//            Sphere sphere = new Sphere(10, 50, 50);
+//            Material material = new Material();
+//            material.setColorInfluence(1f);
+//            sphere.setMaterial(material);
+//            sphere.setPosition(-10, 10, 0);
+//            getCurrentScene().addChild(sphere);
+
+            /*
             Texture earth = new Texture("earth", R.drawable.earthmap);
             Sphere sphere = new Sphere(10, 50, 50);
             Material material = new Material();
             material.addTexture(earth);
             material.setColorInfluence(0f);
+            material.enableLighting(true);
+            material.setDiffuseMethod(new DiffuseMethod.Lambert());
             sphere.setMaterial(material);
             sphere.setPosition(80, 0, 0);
             getCurrentScene().addChild(sphere);
+
+            RotateAnimation3D anim = new RotateAnimation3D(2f, 10f, 1f);
+            anim.setDurationMilliseconds(4*1000);
+            anim.setRepeatMode(Animation.RepeatMode.INFINITE);
+            anim.setTransformable3D(sphere);
+            getCurrentScene().registerAnimation(anim);
+            anim.play();
+            */
+
+            // END SPACE
+
 //            FBXParser parser = new FBXParser(this, R.raw.cooper-hewitt_floor_01_final);
 //            parser.parse();
 //            BaseObject3D mObject = parser.getParsedObject();
@@ -112,6 +157,7 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
 //        mBlender.blendPhotosphereByYaw(mCameraOrientation, mFirstTexture, mSecondTexture);
 //        mVideoScreen.advanceFrame();
 //        mVideoSphereScreen.advanceFrame();
+        mCameraScreen.advanceFrame();
         super.onRender(deltaTime);
     }
 }
