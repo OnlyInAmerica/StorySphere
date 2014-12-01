@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Gallery.iml" filepath="$PROJECT_DIR$/Gallery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StorySphere.iml" filepath="$PROJECT_DIR$/StorySphere.iml" />
       <module fileurl="file://$PROJECT_DIR$/rajawali/rajawali.iml" filepath="$PROJECT_DIR$/rajawali/rajawali.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rajawalivr/rajawaliVR.iml" filepath="$PROJECT_DIR$/rajawalivr/rajawaliVR.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rajawalivr/RajawaliVR/rajawaliVR.iml" filepath="$PROJECT_DIR$/rajawalivr/RajawaliVR/rajawaliVR.iml" />
       <module fileurl="file://$PROJECT_DIR$/storysphere/storysphere.iml" filepath="$PROJECT_DIR$/storysphere/storysphere.iml" />
     </modules>
   </component>

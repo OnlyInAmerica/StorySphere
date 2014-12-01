@@ -8,9 +8,7 @@ import rajawali.Object3D;
 import rajawali.materials.Material;
 import rajawali.materials.textures.ATexture;
 import rajawali.materials.textures.VideoTexture;
-import rajawali.primitives.Plane;
 import rajawali.primitives.Sphere;
-import rajawali.vr.example.R;
 
 /**
  * Created by davidbrodsky on 10/5/14.

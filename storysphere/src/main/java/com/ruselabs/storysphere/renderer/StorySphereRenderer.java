@@ -2,17 +2,14 @@ package com.ruselabs.storysphere.renderer;
 
 import android.content.Context;
 
+import com.ruselabs.storysphere.R;
 import com.ruselabs.storysphere.tricks.ChromaVideoScreen;
 import com.ruselabs.storysphere.tricks.VideoSphereScreen;
 
-import rajawali.Object3D;
 import rajawali.materials.Material;
 import rajawali.materials.textures.Texture;
-import rajawali.parser.Loader3DSMax;
-import rajawali.parser.LoaderOBJ;
 import rajawali.primitives.Sphere;
 import rajawali.vr.RajawaliVRRenderer;
-import rajawali.vr.example.R;
 
 /**
  * This class handles all things graphics.

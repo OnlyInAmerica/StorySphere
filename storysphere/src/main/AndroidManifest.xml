@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="rajawali.vr.example"
+    package="com.ruselabs.storysphere"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -8,7 +8,7 @@
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="21" />
 
     <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
 
