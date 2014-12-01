@@ -20,5 +20,5 @@ android {
 
 dependencies {
     compile project(':rajawali')
-    compile project(':rajawaliVR')
+    compile project(':rajawalivr:rajawaliVR')
 }

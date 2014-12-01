@@ -10,7 +10,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/rajawali" />
-            <option value="$PROJECT_DIR$/rajawaliVR" />
+            <option value="$PROJECT_DIR$/rajawalivr" />
+            <option value="$PROJECT_DIR$/rajawalivr/RajawaliVR" />
             <option value="$PROJECT_DIR$/storysphere" />
           </set>
         </option>

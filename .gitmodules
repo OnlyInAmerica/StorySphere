@@ -1,0 +1,6 @@
+[submodule "rajawali"]
+	path = rajawali
+	url = git@github.com:OnlyInAmerica/Rajawali.git
+[submodule "rajawalivr"]
+	path = rajawalivr
+	url = git@github.com:OnlyInAmerica/RajawaliVR.git
