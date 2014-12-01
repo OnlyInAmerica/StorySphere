@@ -45,10 +45,14 @@ public class AlphaVideoFragmentShaderFragment extends ATextureFragmentShaderFrag
                 fragColor.assignMultiply(muInfluence[i]);
                 color.assign(fragColor);
 
-                Condition[] conditions = new Condition[3];
-                conditions[0] = new Condition(fragColor.r(), Operator.LESS_THAN, .5f);
-                conditions[1] = new Condition(Operator.AND, fragColor.g(), Operator.LESS_THAN, .5f);
-                conditions[2] = new Condition(Operator.AND, fragColor.b(), Operator.LESS_THAN, .5f);
+//                Condition[] conditions = new Condition[3];
+//                conditions[0] = new Condition(fragColor.r(), Operator.LESS_THAN, .5f);
+//                conditions[1] = new Condition(Operator.AND, fragColor.g(), Operator.LESS_THAN, .5f);
+//                conditions[2] = new Condition(Operator.AND, fragColor.b(), Operator.LESS_THAN, .5f);
+                Condition[] conditions = new Condition[1];
+                conditions[0] = new Condition(fragColor.r(), Operator.LESS_THAN, .2f);
+//                conditions[1] = new Condition(Operator.AND, fragColor.g(), Operator.LESS_THAN, .5f);
+//                conditions[2] = new Condition(Operator.AND, fragColor.b(), Operator.LESS_THAN, .5f);
                 startif(conditions);
                 {
                     discard();

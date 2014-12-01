@@ -7,6 +7,7 @@ import rajawali.Object3D;
 import rajawali.materials.Material;
 import rajawali.materials.textures.ATexture;
 import rajawali.materials.textures.AlphaVideoTexture;
+import rajawali.materials.textures.VideoTexture;
 import rajawali.primitives.Plane;
 
 /**
@@ -15,24 +16,22 @@ import rajawali.primitives.Plane;
 public class VideoScreen {
 
     Plane mVideoScreen;
-    AlphaVideoTexture mVideoTexture;
-//    VideoTexture mVideoTexture;
+//    AlphaVideoTexture mVideoTexture;
+    VideoTexture mVideoTexture;
     Material mVideoMaterial;
     MediaPlayer mMediaPlayer;
 
 
-    public VideoScreen(Context context, int movieResId, int initialHeight, int initialWidth) {
+    public VideoScreen(Context context, int movieResId, int initialHeight, int initialWidth, double x, double y, double z) {
         try {
             mMediaPlayer = MediaPlayer.create(context, movieResId);
             mMediaPlayer.setLooping(true);
             mMediaPlayer.start();
-            mVideoTexture = new AlphaVideoTexture("video", mMediaPlayer);
-//            mVideoTexture = new VideoTexture("video", mMediaPlayer);
+            mVideoTexture = new VideoTexture("video", mMediaPlayer);
 
             mVideoScreen = new Plane(initialWidth, initialHeight, 1, 1);
-            mVideoScreen.setPosition(-40, .5,-2);
+            mVideoScreen.setPosition(x, y, z);
             mVideoScreen.setRotY(90);
-            mVideoScreen.setRotZ(3);
             mVideoScreen.setDoubleSided(true);
             mVideoMaterial = new Material();
             mVideoMaterial.addTexture(mVideoTexture);

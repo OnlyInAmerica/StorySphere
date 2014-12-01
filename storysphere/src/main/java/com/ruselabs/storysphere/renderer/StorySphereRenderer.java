@@ -1,15 +1,15 @@
 package com.ruselabs.storysphere.renderer;
 
 import android.content.Context;
-import android.media.MediaPlayer;
 
 import com.ruselabs.storysphere.tricks.ChromaVideoScreen;
-import com.ruselabs.storysphere.tricks.VideoScreen;
+import com.ruselabs.storysphere.tricks.VideoSphereScreen;
 
+import rajawali.Object3D;
 import rajawali.materials.Material;
 import rajawali.materials.textures.Texture;
-import rajawali.materials.textures.VideoTexture;
-import rajawali.primitives.Plane;
+import rajawali.parser.Loader3DSMax;
+import rajawali.parser.LoaderOBJ;
 import rajawali.primitives.Sphere;
 import rajawali.vr.RajawaliVRRenderer;
 import rajawali.vr.example.R;
@@ -29,7 +29,8 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
     private Texture mFirstTexture;
     private Texture mSecondTexture;
 
-    private VideoScreen mVideoScreen;
+    private ChromaVideoScreen mVideoScreen;
+    private VideoSphereScreen mVideoSphereScreen;
 //    private PhotosphereBlender mBlender;
 
     public StorySphereRenderer(Context context) {
@@ -42,35 +43,65 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
         try {
 
             /** These values don't have a great significance if we're not placing objects within the sphere */
-            final int PHOTOSPHERE_RADIUS = 50;
-            final int PHOTOSPHERE_SEGMENTS_VERTICAL = 24;
-            final int PHOTOSPHERE_SEGMENTS_HORIZONTAL = 24;
+            final int PHOTOSPHERE_RADIUS = 70;
 
             /** Create Photosphere */
-            //        mBlender = new PhotosphereBlender();
-//            getCurrentCamera().setPosition(0,0,0);
-//            Sphere sphere = new Sphere(PHOTOSPHERE_RADIUS, PHOTOSPHERE_SEGMENTS_HORIZONTAL, PHOTOSPHERE_SEGMENTS_VERTICAL);
-//            sphere.setPosition(0, 0, 0);
-//            sphere.setDoubleSided(true);
+//            String videoPath = new File(Environment.getExternalStorageDirectory(), "output.mp4").getAbsolutePath();
+//            mVideoSphereScreen = new VideoSphereScreen(mContext, videoPath, PHOTOSPHERE_RADIUS, 0, 0, 0);
+//            getCurrentScene().addChild(mVideoSphereScreen.getScreen());
+            getCurrentCamera().setPosition(0,0,0);
 
-            /** Setup video */
-            mVideoScreen = new VideoScreen(mContext, R.raw.explosion, 9, 16);
-            getCurrentScene().addChild(mVideoScreen.getScreen());
+            /** Setup Model loader */
 
 
-//            mFirstTexture = new Texture("room", R.drawable.living_room_4096);
-////            mFirstTexture = new Texture("hawaii", R.drawable.hawaii_4096);
-////            mSecondTexture = new Texture("brc", R.drawable.brc_4096);
-////            mSecondTexture.setInfluence(0f);
-//            Material material = new Material();
+//            Loader3DSMax obj = new Loader3DSMax(this, R.raw.hemlock); // hemlock tree
+//            obj.parse();
+//            Object3D hemlock = obj.getParsedObject();
+//            hemlock.setPosition(-40, 0, 0);
+//            getCurrentScene().addChild(hemlock);
+
+//            ObjParser objParser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.myobject_obj);
+//            objParser.parse();
+//            BaseObject3D mObject = objParser.getParsedObject();
+//            mObject.setLight(mLight);
+//            addChild(mObject);
+
+//            LoaderOBJ obj = new LoaderOBJ(this, R.raw.earth_obj); // hemlock tree
+//            LoaderOBJ obj = new LoaderOBJ(getContext().getResources(), mTextureManager, R.raw.rocky_planets_obj); // hemlock tree
+//            obj.parse();
+//            Object3D earth = obj.getParsedObject();
+//            earth.setPosition(-10, 0, 0);
+//            getCurrentScene().addChild(earth);
+
+//            LoaderFBX fbx = new LoaderFBX(this, R.raw.cooper_hewitt_floor_03_final);
+//            fbx.parse();
+//            Object3D hewitt = fbx.getParsedObject();
+//            hewitt.setPosition(-40,0,0);
+//            hewitt.setScale(1f);
+//            getCurrentScene().addChild(hewitt);
+
 //
-//            material.addTexture(mFirstTexture);
-////            material.addTexture(mSecondTexture);
-//            material.enableLighting(true);
-//            material.setColorInfluence(0f);
-//            sphere.setMaterial(material);
-//
-//            getCurrentScene().addChild(sphere);
+            getCurrentScene().setSkybox(R.drawable.starfield_front,
+                                        R.drawable.starfield_right,
+                                        R.drawable.starfield_back,
+                                        R.drawable.starfield_left,
+                                        R.drawable.starfield_top,
+                                        R.drawable.starfield_back);
+
+            Texture earth = new Texture("earth", R.drawable.earthmap);
+            Sphere sphere = new Sphere(10, 50, 50);
+            Material material = new Material();
+            material.addTexture(earth);
+            material.setColorInfluence(0f);
+            sphere.setMaterial(material);
+            sphere.setPosition(80, 0, 0);
+            getCurrentScene().addChild(sphere);
+//            FBXParser parser = new FBXParser(this, R.raw.cooper-hewitt_floor_01_final);
+//            parser.parse();
+//            BaseObject3D mObject = parser.getParsedObject();
+//            mObject.addLight(mLight);
+//            addChild(mObject);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +113,8 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
     @Override
     public void onRender(double deltaTime) {
 //        mBlender.blendPhotosphereByYaw(mCameraOrientation, mFirstTexture, mSecondTexture);
-        mVideoScreen.advanceFrame();
+//        mVideoScreen.advanceFrame();
+//        mVideoSphereScreen.advanceFrame();
         super.onRender(deltaTime);
     }
 }

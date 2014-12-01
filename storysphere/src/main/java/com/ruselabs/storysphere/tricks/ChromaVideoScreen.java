@@ -21,7 +21,7 @@ public class ChromaVideoScreen {
     MediaPlayer mMediaPlayer;
 
 
-    public ChromaVideoScreen(Context context, int movieResId, int initialHeight, int initialWidth) {
+    public ChromaVideoScreen(Context context, int movieResId, int initialHeight, int initialWidth, double x , double y, double z) {
         try {
             mMediaPlayer = MediaPlayer.create(context, movieResId);
             mMediaPlayer.setLooping(true);
@@ -29,9 +29,8 @@ public class ChromaVideoScreen {
             mVideoTexture = new AlphaVideoTexture("video", mMediaPlayer);
 
             mVideoScreen = new Plane(initialWidth, initialHeight, 1, 1);
-            mVideoScreen.setPosition(-40, .5,-2);
+            mVideoScreen.setPosition(x, y, z);
             mVideoScreen.setRotY(90);
-            mVideoScreen.setRotZ(3);
             mVideoScreen.setDoubleSided(true);
             mVideoMaterial = new Material();
             mVideoMaterial.addTexture(mVideoTexture);

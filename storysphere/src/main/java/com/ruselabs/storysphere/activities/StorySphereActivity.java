@@ -61,4 +61,16 @@ public class StorySphereActivity extends RajawaliVRActivity {
             enterStickyImmersiveMode();
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
 }
