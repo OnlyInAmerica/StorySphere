@@ -2,9 +2,9 @@ package com.ruselabs.storysphere.renderer;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.util.Log;
 
 import com.ruselabs.storysphere.R;
-import com.ruselabs.storysphere.activities.StorySphereActivity;
 import com.ruselabs.storysphere.tricks.CameraScreen;
 import com.ruselabs.storysphere.tricks.ChromaVideoScreen;
 import com.ruselabs.storysphere.tricks.VideoSphereScreen;
@@ -103,11 +103,17 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
 
             mEnableHeadTracking = false;
 
-            Camera camera = ((StorySphereActivity) mContext).getCamera();
-            mCameraScreen = new CameraScreen(camera, 6, 8, 0, 0, -10);
-            mCameraScreen.getScreen().setRotY(180);
-            getCurrentScene().addChild(mCameraScreen.getScreen());
-            camera.startPreview();
+//            ChromaVideoScreen chromaVideoScreen = new ChromaVideoScreen(mContext, R.raw.explosion, 16, 9, 0, 0, -12);
+//            getCurrentScene().addChild(chromaVideoScreen.getScreen());
+
+//            Camera camera = ((StorySphereActivity) mContext).getCamera();
+//            Camera.Parameters params = camera.getParameters();
+//            choosePreviewSize(params, 1280, 720);
+//            camera.setParameters(params);
+//            camera.startPreview();
+//            mCameraScreen = new CameraScreen(camera, 9, 16, 0, 0, -12);
+//            mCameraScreen.getScreen().setRotY(180);
+//            getCurrentScene().addChild(mCameraScreen.getScreen());
 
 //            Sphere sphere = new Sphere(10, 50, 50);
 //            Material material = new Material();
@@ -144,6 +150,21 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
 //            mObject.addLight(mLight);
 //            addChild(mObject);
 
+//            LoaderAWD awdParser = new LoaderAWD(mContext.getResources(), mTextureManager, R.raw.broc_un);
+//            awdParser.parse();
+//            Object3D broc = awdParser.getParsedObject();
+//            broc.setPosition(0, 0, -12);
+//            for (int x = 0; x < broc.getNumChildren(); x++) {
+//                broc.getChildAt(x).getMaterial().setColorInfluence(0f);
+//            }
+//            getCurrentScene().addChild(broc);
+
+//            RotateAnimation3D anim = new RotateAnimation3D(-400f, 1f, 1f);
+//            anim.setDurationMilliseconds(40*1000);
+//            anim.setTransformable3D(broc);
+//            getCurrentScene().registerAnimation(anim);
+//            anim.play();
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,7 +178,30 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
 //        mBlender.blendPhotosphereByYaw(mCameraOrientation, mFirstTexture, mSecondTexture);
 //        mVideoScreen.advanceFrame();
 //        mVideoSphereScreen.advanceFrame();
-        mCameraScreen.advanceFrame();
+//        mCameraScreen.advanceFrame();
         super.onRender(deltaTime);
+    }
+
+    private static void choosePreviewSize(Camera.Parameters parms, int width, int height) {
+        // We should make sure that the requested MPEG size is less than the preferred
+        // size, and has the same aspect ratio.
+        Camera.Size ppsfv = parms.getPreferredPreviewSizeForVideo();
+        if (ppsfv != null) {
+            Log.d(TAG, "Camera preferred preview size for video is " +
+                    ppsfv.width + "x" + ppsfv.height);
+        }
+
+        for (Camera.Size size : parms.getSupportedPreviewSizes()) {
+            if (size.width == width && size.height == height) {
+                parms.setPreviewSize(width, height);
+                return;
+            }
+        }
+
+        Log.w(TAG, "Unable to set preview size to " + width + "x" + height);
+        if (ppsfv != null) {
+            parms.setPreviewSize(ppsfv.width, ppsfv.height);
+        }
+        // else use whatever the default size is
     }
 }

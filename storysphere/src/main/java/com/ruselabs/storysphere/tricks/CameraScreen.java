@@ -6,7 +6,7 @@ import android.hardware.Camera;
 import rajawali.Object3D;
 import rajawali.materials.Material;
 import rajawali.materials.textures.ATexture;
-import rajawali.materials.textures.VideoTexture;
+import rajawali.materials.textures.AlphaVideoTexture;
 import rajawali.primitives.Plane;
 
 /**
@@ -15,7 +15,8 @@ import rajawali.primitives.Plane;
 public class CameraScreen {
 
     Plane mVideoScreen;
-    VideoTexture mVideoTexture;
+//    VideoTexture mVideoTexture;
+    AlphaVideoTexture mVideoTexture;
     Material mVideoMaterial;
     Camera mCamera;
 
@@ -23,7 +24,13 @@ public class CameraScreen {
     public CameraScreen(Camera camera, int initialHeight, int initialWidth, double x, double y, double z) {
         try {
             mCamera = camera;
-            mVideoTexture = new VideoTexture("camera", mCamera, new SurfaceTexture.OnFrameAvailableListener() {
+//            mVideoTexture = new VideoTexture("camera", mCamera, new SurfaceTexture.OnFrameAvailableListener() {
+//                @Override
+//                public void onFrameAvailable(SurfaceTexture surfaceTexture) {
+//                    // do nothing
+//                }
+//            });
+            mVideoTexture = new AlphaVideoTexture("camera", mCamera, new SurfaceTexture.OnFrameAvailableListener() {
                 @Override
                 public void onFrameAvailable(SurfaceTexture surfaceTexture) {
                     // do nothing
