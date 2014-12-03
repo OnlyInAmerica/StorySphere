@@ -1,3 +1,4 @@
+include ':rajawalivuforia:RajawaliVuforia'
 include ':rajawalivr:rajawaliVR'
 include ':storysphere'
 include ':rajawali'

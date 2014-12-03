@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/rajawalivuforia/RajawaliVuforia/RajawaliVuforia.iml" filepath="$PROJECT_DIR$/rajawalivuforia/RajawaliVuforia/RajawaliVuforia.iml" />
       <module fileurl="file://$PROJECT_DIR$/StorySphere.iml" filepath="$PROJECT_DIR$/StorySphere.iml" />
       <module fileurl="file://$PROJECT_DIR$/rajawali/rajawali.iml" filepath="$PROJECT_DIR$/rajawali/rajawali.iml" />
       <module fileurl="file://$PROJECT_DIR$/rajawalivr/RajawaliVR/rajawaliVR.iml" filepath="$PROJECT_DIR$/rajawalivr/RajawaliVR/rajawaliVR.iml" />

@@ -4,3 +4,6 @@
 [submodule "rajawalivr"]
 	path = rajawalivr
 	url = git@github.com:OnlyInAmerica/RajawaliVR.git
+[submodule "rajawalivuforia"]
+	path = rajawalivuforia
+	url = git@github.com:OnlyInAmerica/RajawaliVuforia.git

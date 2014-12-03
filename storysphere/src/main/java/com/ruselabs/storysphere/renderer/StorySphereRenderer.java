@@ -9,9 +9,16 @@ import com.ruselabs.storysphere.tricks.CameraScreen;
 import com.ruselabs.storysphere.tricks.ChromaVideoScreen;
 import com.ruselabs.storysphere.tricks.VideoSphereScreen;
 
+import javax.microedition.khronos.opengles.GL10;
+
 import rajawali.lights.DirectionalLight;
+import rajawali.materials.Material;
+import rajawali.materials.methods.DiffuseMethod;
 import rajawali.materials.textures.Texture;
-import rajawali.vr.RajawaliVRRenderer;
+import rajawali.math.Quaternion;
+import rajawali.math.vector.Vector3;
+import rajawali.primitives.Sphere;
+import rajawali.vuforia.RajawaliVuforiaRenderer;
 
 /**
  * This class handles all things graphics.
@@ -21,7 +28,7 @@ import rajawali.vr.RajawaliVRRenderer;
  *
  *  @author David Brodsky (dbro@dbro.pro)
  */
-public class StorySphereRenderer extends RajawaliVRRenderer {
+public class StorySphereRenderer extends RajawaliVuforiaRenderer {
     public static final String TAG = "StorySphereRenderer";
 
     /** Photosphere textures */
@@ -33,9 +40,32 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
     private CameraScreen mCameraScreen;
 //    private PhotosphereBlender mBlender;
 
+//    private SkeletalAnimationObject3D mBob;
+    private Sphere mEarth;
+
     public StorySphereRenderer(Context context) {
         super(context);
         setFrameRate(60);
+    }
+
+    @Override
+    protected void foundFrameMarker(int markerId, Vector3 position, Quaternion orientation) {
+        Log.i(TAG, "Found  marker " + markerId);
+    }
+
+    @Override
+    protected void foundImageMarker(String trackableName, Vector3 position, Quaternion orientation) {
+        if (trackableName.equals("stones")) {
+//            Log.i(TAG, String.format("found image marker %s at (%f, %f, %f)",trackableName, position.x, position.y, position.z ));
+            mEarth.setVisible(true);
+            mEarth.setPosition(position);
+            mEarth.setOrientation(orientation);
+        }
+    }
+
+    @Override
+    public void noFrameMarkersFound() {
+
     }
 
     @Override
@@ -49,7 +79,7 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
 //            String videoPath = new File(Environment.getExternalStorageDirectory(), "output.mp4").getAbsolutePath();
 //            mVideoSphereScreen = new VideoSphereScreen(mContext, videoPath, PHOTOSPHERE_RADIUS, 0, 0, 0);
 //            getCurrentScene().addChild(mVideoSphereScreen.getScreen());
-            getCurrentCamera().setPosition(0,0,0);
+//            getCurrentCamera().setPosition(0,0,0);
 
             /** Setup Model loader */
 
@@ -92,16 +122,16 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
             light.setPower(1f);
             getCurrentScene().addLight(light);
 
-            getCurrentScene().setBackgroundColor(0f, 0f, 0f, 1f);
-            getCurrentScene().setSkybox(R.drawable.starfield_front,
-                                        R.drawable.starfield_right,
-                                        R.drawable.starfield_back,
-                                        R.drawable.starfield_left,
-                                        R.drawable.starfield_top,
-                                        R.drawable.starfield_back);
+//            getCurrentScene().setBackgroundColor(0f, 0f, 0f, 1f);
+//            getCurrentScene().setSkybox(R.drawable.starfield_front,
+//                                        R.drawable.starfield_right,
+//                                        R.drawable.starfield_back,
+//                                        R.drawable.starfield_left,
+//                                        R.drawable.starfield_top,
+//                                        R.drawable.starfield_back);
 
 
-            mEnableHeadTracking = false;
+//            mEnableHeadTracking = false;
 
 //            ChromaVideoScreen chromaVideoScreen = new ChromaVideoScreen(mContext, R.raw.explosion, 16, 9, 0, 0, -12);
 //            getCurrentScene().addChild(chromaVideoScreen.getScreen());
@@ -122,25 +152,43 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
 //            sphere.setPosition(-10, 10, 0);
 //            getCurrentScene().addChild(sphere);
 
-            /*
             Texture earth = new Texture("earth", R.drawable.earthmap);
-            Sphere sphere = new Sphere(10, 50, 50);
+            mEarth = new Sphere(10, 50, 50);
+            mEarth.setPosition(0,0,0);
             Material material = new Material();
             material.addTexture(earth);
             material.setColorInfluence(0f);
             material.enableLighting(true);
             material.setDiffuseMethod(new DiffuseMethod.Lambert());
-            sphere.setMaterial(material);
-            sphere.setPosition(80, 0, 0);
-            getCurrentScene().addChild(sphere);
+            mEarth.setMaterial(material);
+            mEarth.setScale(10);
+//            mEarth.setPosition(80, 0, 0);
+            getCurrentScene().addChild(mEarth);
 
-            RotateAnimation3D anim = new RotateAnimation3D(2f, 10f, 1f);
-            anim.setDurationMilliseconds(4*1000);
-            anim.setRepeatMode(Animation.RepeatMode.INFINITE);
-            anim.setTransformable3D(sphere);
-            getCurrentScene().registerAnimation(anim);
-            anim.play();
-            */
+//            LoaderMD5Mesh meshParser = new LoaderMD5Mesh(this,
+//                    R.raw.boblampclean_mesh);
+//            meshParser.parse();
+//            mBob = (SkeletalAnimationObject3D) meshParser
+//                    .getParsedAnimationObject();
+//            mBob.setScale(2);
+//
+//            LoaderMD5Anim animParser = new LoaderMD5Anim("dance", this,
+//                    R.raw.boblampclean_anim);
+//            animParser.parse();
+//            mBob.setAnimationSequence((SkeletalAnimationSequence) animParser
+//                    .getParsedAnimationSequence());
+//
+//            getCurrentScene().addChild(mBob);
+//
+//            mBob.play();
+//            mBob.setVisible(false);
+
+//            RotateAnimation3D anim = new RotateAnimation3D(2f, 10f, 1f);
+//            anim.setDurationMilliseconds(4*1000);
+//            anim.setRepeatMode(Animation.RepeatMode.INFINITE);
+//            anim.setTransformable3D(mEarth);
+//            getCurrentScene().registerAnimation(anim);
+//            anim.play();
 
             // END SPACE
 
@@ -203,5 +251,11 @@ public class StorySphereRenderer extends RajawaliVRRenderer {
             parms.setPreviewSize(ppsfv.width, ppsfv.height);
         }
         // else use whatever the default size is
+    }
+
+    public void onDrawFrame(GL10 glUnused) {
+        mEarth.setVisible(false);
+
+        super.onDrawFrame(glUnused);
     }
 }

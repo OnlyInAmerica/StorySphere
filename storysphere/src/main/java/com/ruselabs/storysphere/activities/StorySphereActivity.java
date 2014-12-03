@@ -7,8 +7,6 @@ import android.view.View;
 
 import com.ruselabs.storysphere.renderer.StorySphereRenderer;
 
-import rajawali.vr.RajawaliVRActivity;
-
 /**
  * This class is the entry point for the StorySphere experience.
  * All we're doing is extending {@link rajawali.RajawaliActivity}
@@ -16,7 +14,7 @@ import rajawali.vr.RajawaliVRActivity;
  *
  *  @author David Brodsky (dbro@dbro.pro)
  */
-public class StorySphereActivity extends RajawaliVRActivity {
+public class StorySphereActivity extends ARActivity {
 	private StorySphereRenderer mRenderer;
     private Camera mCamera;
 
@@ -30,14 +28,16 @@ public class StorySphereActivity extends RajawaliVRActivity {
         // Lock the orientation to landscape
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        if (mCamera == null) {
-            mCamera = Camera.open();
-        }
+//        if (mCamera == null) {
+//            mCamera = Camera.open();
+//        }
 
         // Connect our Storysphere renderer
 		mRenderer = new StorySphereRenderer(this);
 		mRenderer.setSurfaceView(mSurfaceView);
 		setRenderer(mRenderer);
+
+        startVuforia();
 	}
 
 
@@ -84,12 +84,12 @@ public class StorySphereActivity extends RajawaliVRActivity {
     public void onDestroy() {
         super.onDestroy();
 
-        if (mCamera != null) {
-            mCamera.release();
-        }
+//        if (mCamera != null) {
+//            mCamera.release();
+//        }
     }
 
-    public Camera getCamera() {
-        return mCamera;
-    }
+//    public Camera getCamera() {
+//        return mCamera;
+//    }
 }
